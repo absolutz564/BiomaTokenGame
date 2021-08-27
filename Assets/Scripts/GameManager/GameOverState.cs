@@ -36,9 +36,9 @@ public class GameOverState : AState
             missionPopup.gameObject.SetActive(false);
 
 		CreditCoins();
-
 		if (MusicPlayer.instance.GetStem(0) != gameOverTheme)
 		{
+            canvas.transform.parent.gameObject.SetActive(true);
             MusicPlayer.instance.SetStem(0, gameOverTheme);
 			StartCoroutine(MusicPlayer.instance.RestartAllStems());
         }
@@ -46,6 +46,7 @@ public class GameOverState : AState
 
 	public override void Exit(AState to)
     {
+        Debug.Log("Exit");
         canvas.gameObject.SetActive(false);
         FinishRun();
     }
