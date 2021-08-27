@@ -10,7 +10,8 @@ public class Leaderboard : MonoBehaviour
 	public bool forcePlayerDisplay;
 	public bool displayPlayer = true;
 
-	public void Open()
+
+    public void Open()
 	{
 		gameObject.SetActive(true);
 
@@ -24,6 +25,7 @@ public class Leaderboard : MonoBehaviour
 
 	public void Populate()
 	{
+		Debug.Log("preencheiu");
 		// Start by making all entries enabled & putting player entry last again.
 		playerEntry.transform.SetAsLastSibling();
 		for(int i = 0; i < entriesCount; ++i)

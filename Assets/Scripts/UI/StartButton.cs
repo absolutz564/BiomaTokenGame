@@ -24,6 +24,13 @@ public class StartButton : MonoBehaviour
     public GameObject NameObject;
     public GameObject EmailObject;
 
+    public GameObject RankingObject;
+
+    public void SetRankingState(bool state)
+    {
+        RankingObject.SetActive(state);
+    }
+
     public void StartGame()
     {
         if (PlayerData.instance.ftueLevel == 0)
@@ -105,7 +112,9 @@ public class StartButton : MonoBehaviour
     {
         Debug.Log(PlayerPrefs.GetString("playername"));
         Debug.Log(PlayerPrefs.GetString("playeremail"));
-        PlayfabManager.instance.Login(PlayerPrefs.GetString("playername"), PlayerPrefs.GetString("playeremail"));
+        PlayfabManager.instance.Email = PlayerPrefs.GetString("playeremail");
+        PlayfabManager.instance.PlayerName = PlayerPrefs.GetString("playername");
+        PlayfabManager.instance.RegisterButton();
 
         AccountObject.SetActive(false);
         PlayGameObject.SetActive(true);

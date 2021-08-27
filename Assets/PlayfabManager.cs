@@ -25,6 +25,35 @@ public class PlayfabManager : MonoBehaviour
     }
 
 
+    public void RegisterButton()
+    {
+        var request = new RegisterPlayFabUserRequest
+        {
+            Email = Email,
+            Password = "biomatoken123",
+            RequireBothUsernameAndEmail = true,
+            Username = PlayerName
+        };
+        PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterSucess, OnErrorRegister);
+    }
+    void OnRegisterSucess(RegisterPlayFabUserResult result)
+    {
+        Debug.Log("registered and logged in!");
+        GetLeaderboard();
+        OnUpdatePlayerName(PlayerName);
+    }
+
+    public void LoginButton()
+    {
+        var request = new LoginWithEmailAddressRequest
+        {
+            Email = Email,
+            Password = "biomatoken123"
+            
+        };
+        PlayFabClientAPI.LoginWithEmailAddress(request, OnSucess, OnError);
+    }
+
     public void AddContactEmailToPlayer(string email)
     {
         var loginReq = new LoginWithCustomIDRequest
@@ -80,9 +109,15 @@ public class PlayfabManager : MonoBehaviour
     {
         Debug.Log("Sucessful login/account create!");
         OnUpdatePlayerName(PlayerName);
-        AddOrUpdateContactEmail(Email);
-    }
+        //AddOrUpdateContactEmail(Email);
+        GetLeaderboard();
 
+    }
+    void OnErrorRegister(PlayFabError error)
+    {
+        Debug.Log("Erro no registro, tentando logar " + error);
+        LoginButton();
+    }
     void OnError(PlayFabError error)
     {
         Debug.Log("Error while logging account!");
