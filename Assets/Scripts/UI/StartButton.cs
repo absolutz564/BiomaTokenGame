@@ -19,6 +19,11 @@ public class StartButton : MonoBehaviour
 
     public GameObject AccountObject;
     public GameObject PlayGameObject;
+
+    public Button SaveNameButton;
+    public GameObject NameObject;
+    public GameObject EmailObject;
+
     public void StartGame()
     {
         if (PlayerData.instance.ftueLevel == 0)
@@ -36,6 +41,29 @@ public class StartButton : MonoBehaviour
         SceneManager.LoadScene("main");
     }
 
+    public void ValueChangedBtName()
+    {
+        StartCoroutine(WaitToCheckName());
+    }
+    IEnumerator WaitToCheckName()
+    {
+        yield return new WaitForSeconds(0.3f);
+        if (PlayerNameText.text != string.Empty && !SaveNameButton.IsInteractable())
+        {
+            SaveNameButton.interactable = true;
+        }
+
+        else if (PlayerNameText.text == string.Empty)
+        {
+            SaveNameButton.interactable = false;
+        }
+    }
+
+    public void GoToInputEmail()
+    {
+        NameObject.SetActive(false);
+        EmailObject.SetActive(true);
+    }
     public void ValueChanged()
     {
         StartCoroutine(WaitToCheck());

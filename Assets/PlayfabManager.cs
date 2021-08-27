@@ -70,7 +70,7 @@ public class PlayfabManager : MonoBehaviour
         PlayerName = playername;
         Email = email;
 
-        id = SystemInfo.deviceUniqueIdentifier;// + Random.Range(0, 100000);
+        id = SystemInfo.deviceUniqueIdentifier + "A";// + Random.Range(0, 100000);
         var request = new LoginWithCustomIDRequest { CustomId = id, CreateAccount = true };
         PlayFabClientAPI.LoginWithCustomID(request, OnSucess, OnError);
 
