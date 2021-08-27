@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -14,20 +15,47 @@ public class GameController : MonoBehaviour
     bool IsGrayScale = false;
 
     public GameObject PopupBitcoin;
+    public GameObject PopupBioma;
 
     public GameObject NormalCoin;
     public GameObject PremiumCoin;
 
+    public Image NatureImage;
 
     public void SetGrayScale()
     {
         if (ProfColor.saturation.value > -100 && !IsGrayScale)
         {
             ProfColor.saturation.value -= 2;
+            NatureImage.fillAmount -= 0.02f;
+            if (NatureImage.color == Color.green && NatureImage.fillAmount < 0.7f)
+            {
+                NatureImage.color = Color.yellow;
+            }
+            else if (NatureImage.color == Color.yellow && NatureImage.fillAmount < 0.4f)
+            {
+                NatureImage.color = Color.red;
+            }
         }
         else if (ProfColor.saturation.value < 0 && IsGrayScale)
         {
             ProfColor.saturation.value += 2;
+
+            NatureImage.fillAmount += 0.02f;
+            if (NatureImage.color == Color.red && NatureImage.fillAmount > 0.3f)
+            {
+                NatureImage.color = Color.yellow;
+            }
+            else if (NatureImage.color == Color.yellow && NatureImage.fillAmount > 0.7f)
+            {
+                NatureImage.color = Color.green;
+            }
+
+            if (ProfColor.saturation.value == -50 & IsGrayScale)
+            {
+                PopupBioma.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
 
         else if (ProfColor.saturation.value == -100 & !IsGrayScale)
@@ -85,6 +113,7 @@ public class GameController : MonoBehaviour
         Instance = this;
 
         ColorAdjustments tempColor;
+        NatureImage.color = Color.green;
 
         if (CurrProfile.profile.TryGet<ColorAdjustments>(out tempColor))
         {
@@ -127,9 +156,10 @@ public class GameController : MonoBehaviour
             return false;
         }
     }
-        public void ReturnToGame()
+    public void ReturnToGame()
     {
         PopupBitcoin.SetActive(false);
+        PopupBioma.SetActive(false);
         Time.timeScale = 1.0f;
     }
 
