@@ -14,6 +14,7 @@ public abstract class Consumable : MonoBehaviour
         NONE,
         COIN_MAG,
         SCORE_MULTIPLAYER,
+        BAD_COIN,
         INVINCIBILITY,
         EXTRALIFE,
 		MAX_COUNT

@@ -112,7 +112,15 @@ public class CharacterCollider : MonoBehaviour
             {
 				Addressables.ReleaseInstance(c.gameObject);
                 PlayerData.instance.premium += 1;
-                controller.premium += 1;
+                if (GameController.Instance.isMult)
+                {
+					controller.premium += 2;
+				}
+				else
+                {
+					controller.premium += 1;
+				}
+
 				//controller.coins += 1;
 
 				Coin.coinPool.Free(c.gameObject);

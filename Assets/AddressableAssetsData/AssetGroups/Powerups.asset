@@ -21,34 +21,66 @@ MonoBehaviour:
     m_Address: ScoreMultiplier
     m_ReadOnly: 0
     m_SerializedLabels: []
+    m_MainAsset: {fileID: 113618, guid: 1269ce00623d4694f927c463dd3be44a, type: 3}
+    m_TargetAsset: {fileID: 113618, guid: 1269ce00623d4694f927c463dd3be44a, type: 3}
   - m_GUID: 527cd33d94f565c428b85a011d736c3c
-    m_Address: Invincibilty
+    m_Address: Assets/Prefabs/Powerup/Invincibilty.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8c89761b43b2362418709a8178d5dd8c
-    m_Address: CoinMagnet
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1000012396982878, guid: 527cd33d94f565c428b85a011d736c3c,
+      type: 3}
+    m_TargetAsset: {fileID: 1000012396982878, guid: 527cd33d94f565c428b85a011d736c3c,
+      type: 3}
   - m_GUID: 8cede34fb26a722408198e0d27628ae9
     m_Address: MagnetParticles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 9e2b957157514af40870bf65c60ae63f
     m_Address: ExtraLifeParticles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    m_MainAsset: {fileID: 1470639489738500, guid: 9e2b957157514af40870bf65c60ae63f,
+      type: 3}
+    m_TargetAsset: {fileID: 1470639489738500, guid: 9e2b957157514af40870bf65c60ae63f,
+      type: 3}
   - m_GUID: ba9ada52ec59a9a419f39eb32bf9a3b0
     m_Address: InvincibilityParticles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: cb8a481413e1e1d43aac95d00d81eea7
     m_Address: MultiplierParticles
     m_ReadOnly: 0
     m_SerializedLabels: []
+    m_MainAsset: {fileID: 1427315010707858, guid: cb8a481413e1e1d43aac95d00d81eea7,
+      type: 3}
+    m_TargetAsset: {fileID: 1427315010707858, guid: cb8a481413e1e1d43aac95d00d81eea7,
+      type: 3}
   - m_GUID: cccc43bc040988e488680155c25b163c
     m_Address: ExtraLife
     m_ReadOnly: 0
     m_SerializedLabels: []
+    m_MainAsset: {fileID: 1000010343856422, guid: cccc43bc040988e488680155c25b163c,
+      type: 3}
+    m_TargetAsset: {fileID: 1000010343856422, guid: cccc43bc040988e488680155c25b163c,
+      type: 3}
+  - m_GUID: e940ce9e8a95d624c87e6866030197b0
+    m_Address: BadCoin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 587486320092722150, guid: e940ce9e8a95d624c87e6866030197b0,
+      type: 3}
+    m_TargetAsset: {fileID: 587486320092722150, guid: e940ce9e8a95d624c87e6866030197b0,
+      type: 3}
+  - m_GUID: e954637ad8cb2bc4397fd0e433e62701
+    m_Address: CrashParticle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:

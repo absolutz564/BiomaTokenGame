@@ -12,8 +12,8 @@ using UnityEngine.Purchasing;
 
 public class StartButton : MonoBehaviour
 {
-    public Text PlayerNameText;
-    public Text PlayerEmailText;
+    public InputField PlayerNameText;
+    public InputField PlayerEmailText;
 
     public Button SaveButton;
 
@@ -25,7 +25,25 @@ public class StartButton : MonoBehaviour
     public GameObject EmailObject;
 
     public GameObject RankingObject;
+    public GameObject LoadingPopup;
 
+    public static StartButton Instance;
+
+    public GameObject ErrorLoginObject;
+
+    public void ErrorLogin()
+    {
+       PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene("Menu");
+    }
+    private void Awake()
+    {
+        Instance = this;
+    }
+    public void SetLoadingState(bool state)
+    {
+        LoadingPopup.SetActive(state);
+    }
     public void SetRankingState(bool state)
     {
         RankingObject.SetActive(state);
@@ -102,6 +120,7 @@ public class StartButton : MonoBehaviour
     {
         PlayerPrefs.SetString("playername", PlayerNameText.text);
         PlayerPrefs.SetString("playeremail", PlayerEmailText.text);
+        Debug.Log(PlayerNameText.text + "é text");
     }
     void GetData()
     {
@@ -110,8 +129,11 @@ public class StartButton : MonoBehaviour
     }
     public void SetAccountInfo()
     {
+        SetLoadingState(true);
         Debug.Log(PlayerPrefs.GetString("playername"));
         Debug.Log(PlayerPrefs.GetString("playeremail"));
+
+        Debug.Log(PlayerNameText.text + "é text");
         PlayfabManager.instance.Email = PlayerPrefs.GetString("playeremail");
         PlayfabManager.instance.PlayerName = PlayerPrefs.GetString("playername");
         PlayfabManager.instance.RegisterButton();

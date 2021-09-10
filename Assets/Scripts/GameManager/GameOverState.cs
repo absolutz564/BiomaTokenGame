@@ -28,7 +28,7 @@ public class GameOverState : AState
 		miniLeaderboard.playerEntry.inputName.text = PlayerPrefs.GetString("playername");
 
         miniLeaderboard.playerEntry.score.text = trackManager.score.ToString();
-		miniLeaderboard.Populate();
+		//miniLeaderboard.Populate();
 
         if (PlayerData.instance.AnyMissionComplete())
             StartCoroutine(missionPopup.Open());
@@ -91,6 +91,11 @@ public class GameOverState : AState
         trackManager.isRerun = false;
         GameController.Instance.SetGameState();
         manager.SwitchState("Game");
+    }
+
+    public void RunGameAgain()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
 
     protected void CreditCoins()

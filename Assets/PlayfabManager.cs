@@ -13,6 +13,8 @@ public class PlayfabManager : MonoBehaviour
     public string Email;
     public List<string> LeaderboardNames = new List<string>();
     public List<string> LeaderboardScores = new List<string>();
+    public List<string> LeaderboardNamesMonthly = new List<string>();
+    public List<string> LeaderboardScoresMonthly = new List<string>();
 
     private void Awake()
     {
@@ -31,7 +33,7 @@ public class PlayfabManager : MonoBehaviour
         {
             Email = Email,
             Password = "biomatoken123",
-            RequireBothUsernameAndEmail = true,
+            RequireBothUsernameAndEmail = false,
             Username = PlayerName
         };
         PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterSucess, OnErrorRegister);
@@ -40,7 +42,9 @@ public class PlayfabManager : MonoBehaviour
     {
         Debug.Log("registered and logged in!");
         GetLeaderboard();
+        GetLeaderboardMonthly();
         OnUpdatePlayerName(PlayerName);
+
     }
 
     public void LoginButton()
@@ -54,38 +58,38 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.LoginWithEmailAddress(request, OnSucess, OnError);
     }
 
-    public void AddContactEmailToPlayer(string email)
-    {
-        var loginReq = new LoginWithCustomIDRequest
-        {
-            CustomId = id, // replace with your own Custom ID
-            CreateAccount = true // otherwise this will create an account with that ID
-        };
+    //public void AddContactEmailToPlayer(string email)
+    //{
+    //    var loginReq = new LoginWithCustomIDRequest
+    //    {
+    //        CustomId = id, // replace with your own Custom ID
+    //        CreateAccount = true // otherwise this will create an account with that ID
+    //    };
 
 
-        var emailAddress = email; // Set this to your own email
+    //    var emailAddress = email; // Set this to your own email
 
 
-        PlayFabClientAPI.LoginWithCustomID(loginReq, loginRes =>
-        {
-            Debug.Log("Successfully logged in player with PlayFabId: " + loginRes.PlayFabId);
-            AddOrUpdateContactEmail(emailAddress);//Removed the parameter -- "PlayFabId"
-        }, FailureCallback);
-    }
+    //    PlayFabClientAPI.LoginWithCustomID(loginReq, loginRes =>
+    //    {
+    //        Debug.Log("Successfully logged in player with PlayFabId: " + loginRes.PlayFabId);
+    //        AddOrUpdateContactEmail(emailAddress);//Removed the parameter -- "PlayFabId"
+    //    }, FailureCallback);
+    //}
 
 
-    void AddOrUpdateContactEmail(string emailAddress)//Removed the parameter -- "PlayFabId"
-    {
-        var request = new AddOrUpdateContactEmailRequest
-        {
-            //[Remove it]PlayFabId = playFabId,
-            EmailAddress = emailAddress
-        };
-        PlayFabClientAPI.AddOrUpdateContactEmail(request, result =>
-        {
-            Debug.Log("The player's account has been updated with a contact email");
-        }, FailureCallback);
-    }
+    //void AddOrUpdateContactEmail(string emailAddress)//Removed the parameter -- "PlayFabId"
+    //{
+    //    var request = new AddOrUpdateContactEmailRequest
+    //    {
+    //        //[Remove it]PlayFabId = playFabId,
+    //        EmailAddress = emailAddress
+    //    };
+    //    PlayFabClientAPI.AddOrUpdateContactEmail(request, result =>
+    //    {
+    //        Debug.Log("The player's account has been updated with a contact email");
+    //    }, FailureCallback);
+    //}
 
 
     void FailureCallback(PlayFabError error)
@@ -94,16 +98,16 @@ public class PlayfabManager : MonoBehaviour
         Debug.LogError(error.GenerateErrorReport());
     }
 
-    public void Login(string playername, string email)
-    {
-        PlayerName = playername;
-        Email = email;
+    //public void Login(string playername, string email)
+    //{
+    //    PlayerName = playername;
+    //    Email = email;
 
-        id = SystemInfo.deviceUniqueIdentifier + "AS";// + Random.Range(0, 100000);
-        var request = new LoginWithCustomIDRequest { CustomId = id, CreateAccount = true };
-        PlayFabClientAPI.LoginWithCustomID(request, OnSucess, OnError);
+    //    id = SystemInfo.deviceUniqueIdentifier + "AS";// + Random.Range(0, 100000);
+    //    var request = new LoginWithCustomIDRequest { CustomId = id, CreateAccount = true };
+    //    PlayFabClientAPI.LoginWithCustomID(request, OnSucess, OnError);
 
-    }
+    //}
 
     void OnSucess(LoginResult result)
     {
@@ -111,6 +115,7 @@ public class PlayfabManager : MonoBehaviour
         OnUpdatePlayerName(PlayerName);
         //AddOrUpdateContactEmail(Email);
         GetLeaderboard();
+        GetLeaderboardMonthly();
 
     }
     void OnErrorRegister(PlayFabError error)
@@ -122,6 +127,13 @@ public class PlayfabManager : MonoBehaviour
     {
         Debug.Log("Error while logging account!");
         Debug.Log(error.GenerateErrorReport());
+        Debug.Log(error.HttpCode);
+
+        if (error.HttpCode.ToString() == "401")
+        {
+            StartButton.Instance.ErrorLoginObject.SetActive(true);
+        }
+        //StartButton.Instance.SetLoadingState(false);
     }
 
     //public void OnUpdatePlayerEmail(string email)
@@ -136,7 +148,11 @@ public class PlayfabManager : MonoBehaviour
     //        Debug.Log("The player's display name is now: " + result.CustomData.ToString());
     //    });
     //}
-
+    
+    void DisableLoading()
+    {
+        StartButton.Instance.SetLoadingState(false);
+    }
     public void OnUpdatePlayerName(string name)
     {
         print("UserDisplayName" + name);
@@ -147,6 +163,7 @@ public class PlayfabManager : MonoBehaviour
         {
 
             Debug.Log("The player's display name is now: " + result.DisplayName);
+            Invoke("DisableLoading", 1);
         }, error => Debug.LogError(error.GenerateErrorReport()));
     }
     public void SendLeaderboard(int score, string name)
@@ -164,7 +181,23 @@ public class PlayfabManager : MonoBehaviour
             }
         };
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnLeaderboardUpdate, OnError);
+
+        var request2 = new UpdatePlayerStatisticsRequest
+        {
+            Statistics = new List<StatisticUpdate>
+            {
+                new StatisticUpdate
+                {
+                    StatisticName = "PlatformScoreMonthly",
+                    DisplayName = name,
+                    Value = score
+                }
+            }
+        };
+        PlayFabClientAPI.UpdatePlayerStatistics(request2, OnLeaderboardUpdate, OnError);
     }
+
+
 
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
     {
@@ -182,6 +215,18 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
     }
 
+    public void GetLeaderboardMonthly()
+    {
+        var request = new GetLeaderboardRequest
+        {
+            StatisticName = "PlatformScoreMonthly",
+            StartPosition = 0,
+            MaxResultsCount = 10
+        };
+        PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGetMonthly, OnError);
+    }
+
+
     void OnLeaderboardGet(GetLeaderboardResult result)
     {
 
@@ -192,6 +237,18 @@ public class PlayfabManager : MonoBehaviour
             //Debug.Log(item.Position + " " + item.DisplayName + " " + item.StatValue);
             LeaderboardNames.Add(item.DisplayName);
             LeaderboardScores.Add(item.StatValue.ToString());
+        }
+    }
+    void OnLeaderboardGetMonthly(GetLeaderboardResult result)
+    {
+
+        LeaderboardNamesMonthly.Clear();
+        LeaderboardScoresMonthly.Clear();
+        foreach (var item in result.Leaderboard)
+        {
+            //Debug.Log(item.Position + " " + item.DisplayName + " " + item.StatValue);
+            LeaderboardNamesMonthly.Add(item.DisplayName);
+            LeaderboardScoresMonthly.Add(item.StatValue.ToString());
         }
     }
 }

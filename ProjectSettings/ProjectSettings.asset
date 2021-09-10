@@ -250,7 +250,7 @@ PlayerSettings:
   clonedFromGUID: cc3866faf74c0014f94b097479f46551
   templatePackageId: 
   templateDefaultScene: 
-  AndroidTargetArchitectures: 7
+  AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: '{inproject}: '

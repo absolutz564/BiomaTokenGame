@@ -7,30 +7,65 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-
+    public bool isTutorial = true;
+    public bool isMult = false;
     public static GameController Instance;
     public Volume CurrProfile;
     public ColorAdjustments ProfColor;
 
-    bool IsGrayScale = false;
+    public bool IsGrayScale = false;
 
     public GameObject PopupBitcoin;
     public GameObject PopupBioma;
+    public GameObject PopupMissionCompleted;
 
     public GameObject NormalCoin;
     public GameObject PremiumCoin;
 
     public Image NatureImage;
 
+    public DegradableItem[] Degradables;
+
+    public GameObject RankingObject;
+
+    public GameObject CoinParent;
+
+    public void SetCoinTo2x(bool state)
+    {
+        if (state)
+        {
+            CoinParent.transform.GetChild(0).gameObject.SetActive(false);
+            CoinParent.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else
+        {
+            CoinParent.transform.GetChild(0).gameObject.SetActive(true);
+            CoinParent.transform.GetChild(1).gameObject.SetActive(false);
+        }
+    }
+    private void Start()
+    {
+        Degradables.Initialize();
+    }
+
+    public void SetRankingState(bool state)
+    {
+        RankingObject.SetActive(state);
+    }
     public void SetGrayScale()
     {
         if (ProfColor.saturation.value > -100 && !IsGrayScale)
         {
-            ProfColor.saturation.value -= 2;
-            NatureImage.fillAmount -= 0.02f;
+            ProfColor.saturation.value -= 1;
+            NatureImage.fillAmount -= 0.01f;
             if (NatureImage.color == Color.green && NatureImage.fillAmount < 0.7f)
             {
                 NatureImage.color = Color.yellow;
+                foreach(DegradableItem item in Degradables)
+                {
+                        item.SwitchTree(true);
+                    
+                }
             }
             else if (NatureImage.color == Color.yellow && NatureImage.fillAmount < 0.4f)
             {
@@ -39,9 +74,9 @@ public class GameController : MonoBehaviour
         }
         else if (ProfColor.saturation.value < 0 && IsGrayScale)
         {
-            ProfColor.saturation.value += 2;
+            ProfColor.saturation.value += 1;
 
-            NatureImage.fillAmount += 0.02f;
+            NatureImage.fillAmount += 0.01f;
             if (NatureImage.color == Color.red && NatureImage.fillAmount > 0.3f)
             {
                 NatureImage.color = Color.yellow;
@@ -51,10 +86,15 @@ public class GameController : MonoBehaviour
                 NatureImage.color = Color.green;
             }
 
-            if (ProfColor.saturation.value == -50 & IsGrayScale)
+            if (ProfColor.saturation.value == -50 && IsGrayScale && !PlayerPrefs.HasKey("historyplayed"))
             {
                 PopupBioma.SetActive(true);
                 Time.timeScale = 0;
+            }
+            else if (ProfColor.saturation.value == 0 && IsGrayScale && !PlayerPrefs.HasKey("historyplayed"))
+            {
+                    PopupMissionCompleted.SetActive(true);
+                    Time.timeScale = 0;      
             }
         }
 
@@ -65,6 +105,7 @@ public class GameController : MonoBehaviour
             Time.timeScale = 0;
             ChangeCoin(true);
             PlayerPrefs.SetInt("historyplayed", 1);
+            isTutorial = false;
         }
         //else if (ProfColor.saturation.value == 0 & IsGrayScale)
         //{
@@ -123,16 +164,16 @@ public class GameController : MonoBehaviour
     }
     public void SetGameState()
     {
-        if (PlayerPrefs.HasKey("historyplayed"))
-        {
-            Debug.Log("ja jogou historia  " + PlayerPrefs.GetInt("historyplayed"));
+        //if (PlayerPrefs.HasKey("historyplayed"))
+        //{
+        //    Debug.Log("ja jogou historia  " + PlayerPrefs.GetInt("historyplayed"));
 
-            if (GetBool("historyplayed"))
-            {
-                StartCoroutine(WaitToChange());
-                Debug.Log("ja jogou historia");
-            }
-        }
+        //    if (GetBool("historyplayed"))
+        //    {
+        //        StartCoroutine(WaitToChange());
+        //        Debug.Log("ja jogou historia");
+        //    }
+        //}
     }
 
     private IEnumerator WaitToChange()
@@ -160,6 +201,7 @@ public class GameController : MonoBehaviour
     {
         PopupBitcoin.SetActive(false);
         PopupBioma.SetActive(false);
+        PopupMissionCompleted.SetActive(false);
         Time.timeScale = 1.0f;
     }
 

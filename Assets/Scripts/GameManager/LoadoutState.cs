@@ -253,7 +253,6 @@ public class LoadoutState : AState
             while (newChar == null)
             {
                 Character c = CharacterDatabase.GetCharacter(PlayerData.instance.characters[PlayerData.instance.usedCharacter]);
-
                 if (c != null)
                 {
                     m_OwnedAccesories.Clear();

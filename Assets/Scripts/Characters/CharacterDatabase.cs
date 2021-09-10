@@ -38,7 +38,6 @@ public class CharacterDatabase
                     m_CharactersDict.Add(c.characterName, c);
                 }
             });
-
             m_Loaded = true;
         }
     }

@@ -326,7 +326,7 @@ public class GameState : AState
 		AudioListener.pause = false;
 		trackManager.End();
 		trackManager.isRerun = false;
-        PlayerData.instance.Save();
+        //PlayerData.instance.Save();
 		manager.SwitchState ("Loadout");
 	}
 
@@ -378,13 +378,14 @@ public class GameState : AState
 	{
 		m_Finished = true;
 		trackManager.StopMove();
-
+        Camera.main.transform.parent = null;
         // Reseting the global blinking value. Can happen if game unexpectly exited while still blinking
         Shader.SetGlobalFloat("_BlinkingValue", 0.0f);
 
         PlayfabManager.instance.SendLeaderboard(trackManager.score, PlayerPrefs.GetString("playername"));
         yield return new WaitForSeconds(1.0f);
         PlayfabManager.instance.GetLeaderboard();
+        PlayfabManager.instance.GetLeaderboardMonthly();
         yield return new WaitForSeconds(1.0f);
 
         if (currentModifier.OnRunEnd(this))

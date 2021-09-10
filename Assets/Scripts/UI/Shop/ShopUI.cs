@@ -36,7 +36,7 @@ public class ShopUI : MonoBehaviour
         PlayerData.Create();
 
         consumableDatabase.Load();
-        CoroutineHandler.StartStaticCoroutine(CharacterDatabase.LoadDatabase());
+        //CoroutineHandler.StartStaticCoroutine(CharacterDatabase.LoadDatabase());
         CoroutineHandler.StartStaticCoroutine(ThemeDatabase.LoadDatabase());
 
 

@@ -98,7 +98,7 @@ public class TrackManager : MonoBehaviour
     protected bool m_IsMoving;
     protected float m_Speed;
 
-    protected float m_TimeSincePowerup;     // The higher it goes, the higher the chance of spawning one
+    public float m_TimeSincePowerup;     // The higher it goes, the higher the chance of spawning one
     protected float m_TimeSinceLastPremium;
 
     protected int m_Multiplier;
@@ -116,7 +116,7 @@ public class TrackManager : MonoBehaviour
     protected float m_ScoreAccum;
     protected bool m_Rerun;     // This lets us know if we are entering a game over (ads) state or starting a new game (see GameState)
 
-    protected bool m_IsTutorial; //Tutorial is a special run that don't chance section until the tutorial step is "validated" by the TutorialState.
+    public bool m_IsTutorial = false; //Tutorial is a special run that don't chance section until the tutorial step is "validated" by the TutorialState.
     
     Vector3 m_CameraOriginalPos = Vector3.zero;
     
@@ -215,7 +215,7 @@ public class TrackManager : MonoBehaviour
             
             //Instantiate(CharacterDatabase.GetCharacter(PlayerData.instance.characters[PlayerData.instance.usedCharacter]), Vector3.zero, Quaternion.identity);
             player.transform.SetParent(characterController.characterCollider.transform, false);
-            Camera.main.transform.SetParent(characterController.transform, true);
+            Camera.main.transform.SetParent(player.transform, true);
 
             if (m_IsTutorial)
                 m_CurrentThemeData = tutorialThemeData;
@@ -615,13 +615,13 @@ public class TrackManager : MonoBehaviour
 
 
                     GameObject toUse = null;
-                    if (Random.value < powerupChance)
+                    if (Random.value < powerupChance && !GameController.Instance.isTutorial)
                     {
                         int picked = Random.Range(0, consumableDatabase.consumbales.Length);
-
                         //if the powerup can't be spawned, we don't reset the time since powerup to continue to have a high chance of picking one next track segment
                         if (consumableDatabase.consumbales[picked].canBeSpawned)
                         {
+                            Debug.Log("picou " + consumableDatabase.consumbales[picked].name);
                             // Spawn a powerup instead.
                             m_TimeSincePowerup = 0.0f;
                             powerupChance = 0.0f;

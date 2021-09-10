@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 // Prefill the info on the player data, as they will be used to populate the leadboard.
 public class Leaderboard : MonoBehaviour
@@ -10,6 +13,41 @@ public class Leaderboard : MonoBehaviour
 	public bool forcePlayerDisplay;
 	public bool displayPlayer = true;
 
+	public Image RankingColorBackground;
+
+	public List<Color> RankingColors = new List<Color>();
+
+	public Button StoryButton;
+	public Button CompButton;
+	public GameObject LoadingObject;
+	public void SetRanking(int index)
+    {
+		LoadingObject.SetActive(true);
+		if (index == 0)
+        {
+			//PlayfabManager.instance.GetLeaderboard();
+			StoryButton.interactable = false;
+			CompButton.interactable = true;
+		}
+        else
+        {
+			//PlayfabManager.instance.GetLeaderboardMonthly();
+			StoryButton.interactable = true;
+			CompButton.interactable = false;
+		}
+		RankingColorBackground.color = RankingColors[index];
+		//Invoke("Populate", 1);
+		//Invoke("DisableLoading", 1.5f);
+		StartCoroutine(DisableLoading());
+	}
+
+	IEnumerator DisableLoading()
+    {
+		yield return new WaitForSecondsRealtime(1f);
+		Populate();
+		yield return new WaitForSecondsRealtime(0.5f);
+		LoadingObject.SetActive(false);
+    }
 
     public void Open()
 	{
@@ -44,18 +82,31 @@ public class Leaderboard : MonoBehaviour
 			localPlace = place - localStart;
 		}
 
-		if (localPlace >= 0 && localPlace < entriesCount && displayPlayer)
-		{
-			playerEntry.gameObject.SetActive(true);
-			playerEntry.transform.SetSiblingIndex(localPlace-1);
-		}
+		//if (localPlace >= 0 && localPlace < entriesCount && displayPlayer)
+		//{
+		//	playerEntry.gameObject.SetActive(true);
+		//	playerEntry.transform.SetSiblingIndex(localPlace-1);
+		//}
 
 		if (!forcePlayerDisplay || PlayerData.instance.highscores.Count < entriesCount)
 			entriesRoot.GetChild(entriesRoot.transform.childCount - 1).gameObject.SetActive(false);
 
 		int currentHighScore = localStart;
 
-		for (int i = 0; i < PlayfabManager.instance.LeaderboardNames.Count; ++i)
+		List<string> rankingNames;
+		List<string> rankingValues;
+		if (StoryButton.IsInteractable())
+        {
+			rankingNames = new List<string>(PlayfabManager.instance.LeaderboardNamesMonthly);
+			rankingValues = new List<string>(PlayfabManager.instance.LeaderboardScoresMonthly);
+		}
+        else
+        {
+			rankingNames = new List<string>(PlayfabManager.instance.LeaderboardNames);
+			rankingValues = new List<string>(PlayfabManager.instance.LeaderboardScores);
+		}
+
+		for (int i = 0; i < rankingNames.Count; ++i)
 		{
 			HighscoreUI hs = entriesRoot.GetChild(i).GetComponent<HighscoreUI>();
 
@@ -65,9 +116,14 @@ public class Leaderboard : MonoBehaviour
 				continue;
 			}
 			//Leaderboard do servidor
-			hs.number.text = (localStart + i + 1).ToString();
-			hs.playerName.text = PlayfabManager.instance.LeaderboardNames[i];
-			hs.score.text = PlayfabManager.instance.LeaderboardScores[i];
+			hs.number.text = (i + 1).ToString();
+			if (hs.number.text == "1" || hs.number.text == "2" || hs.number.text == "3")
+            {
+				hs.number.text = " ";
+			}
+
+			hs.playerName.text = rankingNames[i];
+			hs.score.text = rankingValues[i];
 
 			if (PlayerData.instance.highscores.Count > currentHighScore)
 			{
@@ -85,9 +141,9 @@ public class Leaderboard : MonoBehaviour
 		}
 
 		// If we force the player to be displayed, we enable it even if it was disabled from elsewhere
-		if (forcePlayerDisplay) 
-			playerEntry.gameObject.SetActive(true);
+		//if (forcePlayerDisplay) 
+			//playerEntry.gameObject.SetActive(true);
 
-		playerEntry.number.text = (place).ToString();
+		//playerEntry.number.text = (place).ToString();
 	}
 }
