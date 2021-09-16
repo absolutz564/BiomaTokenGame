@@ -95,6 +95,10 @@ public class GameOverState : AState
 
     public void RunGameAgain()
     {
+        Invoke("Reload", 0.2f);
+    }
+    void Reload()
+    {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
     }
 

@@ -21,10 +21,8 @@ MonoBehaviour:
     m_Address: Pickup
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ac3c86c2382618643bfda6ab3cc81a0b
-    m_Address: PremiumCollectible
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:

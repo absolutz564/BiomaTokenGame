@@ -22,13 +22,17 @@ public class GameController : MonoBehaviour
     public GameObject NormalCoin;
     public GameObject PremiumCoin;
 
-    public Image NatureImage;
+    public List<GameObject> NatureImages;
 
     public DegradableItem[] Degradables;
 
     public GameObject RankingObject;
 
     public GameObject CoinParent;
+
+    public Text RecordText;
+
+    public GameObject NewRecordObject;
 
     public void SetCoinTo2x(bool state)
     {
@@ -45,6 +49,7 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     {
+        RecordText.text = PlayfabManager.instance.LeaderboardScores[0];
         Degradables.Initialize();
     }
 
@@ -52,38 +57,61 @@ public class GameController : MonoBehaviour
     {
         RankingObject.SetActive(state);
     }
+
+    public void SetNewRecordState(bool state)
+    {
+        NewRecordObject.SetActive(state);
+    }
     public void SetGrayScale()
     {
+        
+
         if (ProfColor.saturation.value > -100 && !IsGrayScale)
         {
             ProfColor.saturation.value -= 1;
-            NatureImage.fillAmount -= 0.01f;
-            if (NatureImage.color == Color.green && NatureImage.fillAmount < 0.7f)
+            
+            if (NatureImages[3].activeSelf && ProfColor.saturation.value == -100)
             {
-                NatureImage.color = Color.yellow;
-                foreach(DegradableItem item in Degradables)
+                NatureImages[3].SetActive(false);
+                foreach (DegradableItem item in Degradables)
                 {
                         item.SwitchTree(true);
                     
                 }
             }
-            else if (NatureImage.color == Color.yellow && NatureImage.fillAmount < 0.4f)
+            else if (NatureImages[2].activeSelf && ProfColor.saturation.value == -75)
             {
-                NatureImage.color = Color.red;
+                NatureImages[2].SetActive(false);
+            }
+            else if (NatureImages[1].activeSelf && ProfColor.saturation.value == -50)
+            {
+                NatureImages[1].SetActive(false);
+            }
+            else if (NatureImages[0].activeSelf && ProfColor.saturation.value == -25)
+            {
+                NatureImages[0].SetActive(false);
             }
         }
         else if (ProfColor.saturation.value < 0 && IsGrayScale)
         {
             ProfColor.saturation.value += 1;
 
-            NatureImage.fillAmount += 0.01f;
-            if (NatureImage.color == Color.red && NatureImage.fillAmount > 0.3f)
+
+             if (!NatureImages[3].activeSelf && ProfColor.saturation.value == -75)
             {
-                NatureImage.color = Color.yellow;
+                NatureImages[3].SetActive(true);
             }
-            else if (NatureImage.color == Color.yellow && NatureImage.fillAmount > 0.7f)
+            else if (!NatureImages[2].activeSelf && ProfColor.saturation.value == -50)
             {
-                NatureImage.color = Color.green;
+                NatureImages[2].SetActive(true);
+            }
+            else if (!NatureImages[1].activeSelf && ProfColor.saturation.value == -25)
+            {
+                NatureImages[1].SetActive(true);
+            }
+            else if (!NatureImages[0].activeSelf && ProfColor.saturation.value == 0)
+            {
+                NatureImages[0].SetActive(true);
             }
 
             if (ProfColor.saturation.value == -50 && IsGrayScale && !PlayerPrefs.HasKey("historyplayed"))
@@ -154,7 +182,7 @@ public class GameController : MonoBehaviour
         Instance = this;
 
         ColorAdjustments tempColor;
-        NatureImage.color = Color.green;
+        
 
         if (CurrProfile.profile.TryGet<ColorAdjustments>(out tempColor))
         {

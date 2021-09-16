@@ -376,7 +376,22 @@ public class GameState : AState
 
 	IEnumerator WaitForGameOver()
 	{
-		m_Finished = true;
+        int lastRecord = 0;
+        if (PlayfabManager.instance.LeaderboardScores.Count > 0)
+        {
+            lastRecord = int.Parse(PlayfabManager.instance.LeaderboardScores[0]);
+        }
+
+        //enable new record
+        if (trackManager.characterController.premium > lastRecord)
+        {
+            GameController.Instance.SetNewRecordState(true);
+        }
+        else
+        {
+            GameController.Instance.SetNewRecordState(false);
+        }
+        m_Finished = true;
 		trackManager.StopMove();
         Camera.main.transform.parent = null;
         // Reseting the global blinking value. Can happen if game unexpectly exited while still blinking
