@@ -37,7 +37,7 @@ MonoBehaviour:
     m_Address: Trash Cat
     m_ReadOnly: 0
     m_SerializedLabels:
-    - characters
+    - default
   - m_GUID: 71514012df4dcd146957cb145cec8287
     m_Address: Assets/Prefabs/UI/MissionEntry.prefab
     m_ReadOnly: 0

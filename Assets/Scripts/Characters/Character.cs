@@ -33,16 +33,6 @@ public class Character : MonoBehaviour
     private void Start()
     {
 
-        Invoke("DestroyGetPerson",0.6f);
     }
-    void DestroyGetPerson()
-    {
-        if (transform.parent == null)
-        {
-            TrackManager.instance.players.Add(this);
-            this.gameObject.name = "CharacterPlayer";
-            Debug.Log("ta sem pai");
-            Destroy(this.gameObject);
-        }
-    }
+
 }
