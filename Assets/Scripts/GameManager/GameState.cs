@@ -57,6 +57,9 @@ public class GameState : AState
     public GameObject finishTuto;
 
     public Modifier currentModifier = new Modifier();
+    
+    [Header("Video")]
+    public GameObject videoObject;
 
     public string adsPlacementId = "rewardedVideo";
 #if UNITY_ANALYTICS
@@ -449,6 +452,8 @@ public class GameState : AState
         //This check avoid a bug where the video AND premium button are released on the same frame.
         //It lead to the ads playing and then crashing the game as it try to start the second wind again.
         //Whichever of those function run first will take precedence
+        videoObject.SetActive(true);
+
         if (m_GameoverSelectionDone)
             return;
 
@@ -464,6 +469,12 @@ public class GameState : AState
 
         Invoke("SecondWind", videoTime);
         Camera.main.transform.SetParent(TrackManager.instance.player.transform, true);
+    }
+
+    public void BackToVideo()
+    {
+        CancelInvoke("SecondWind");
+        videoObject.SetActive(false);
     }
 
     public void SecondWind()

@@ -145,6 +145,21 @@ public class GameController : MonoBehaviour
         //}
     }
 
+    private IEnumerator AnimationChangeTree(float target)
+    {
+        for (int i = 0; i < NatureImages.Count; i++)
+        {
+            //while (Vector2.Distance(new Vector2(target, target), 
+           // NatureImages[i].gameObject.GetComponent<RectTranform>().scale) < 0.02)
+           // {
+           //     NatureImages[i].gameObject.GetComponent<RectTranform>().scale.x += 0.01f;
+            //    NatureImages[i].gameObject.GetComponent<RectTranform>().scale.y += 0.01f;
+           //     NatureImages[i].gameObject.GetComponent<RectTranform>().scale.z += 0.01f;
+            //    yield return null;
+        //    }
+        }
+        yield return null;
+    }
     public void ChangeCoin(bool toPremium)
     {
         if (toPremium)
