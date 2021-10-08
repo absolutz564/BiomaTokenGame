@@ -17,7 +17,7 @@ public class DegradableItem : MonoBehaviour
     {
         if (other.tag == "ChangeTree")
         {
-            if (GameController.Instance.ProfColor.saturation.value < -75 && !GameController.Instance.IsGrayScale)
+            if (GameController.Instance.ProfColor.saturation.value < -25 && !GameController.Instance.IsGrayScale)
             {
                 SwitchTree(true);
             }

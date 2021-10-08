@@ -34,8 +34,16 @@ public class GameController : MonoBehaviour
 
     public GameObject NewRecordObject;
 
+    public ParticleSystem SmokeParticle;
+    public ParticleSystem GreenParticle;
 
-        public void SetCoinTo2x(bool state)
+    public GrowAndShrink BadCoinPulse;
+    public GrowAndShrink BiomaCoinPulse;
+    public GrowAndShrink TreePulse;
+
+    public Animator BrilhoAnim;
+
+    public void SetCoinTo2x(bool state)
     {
         if (state)
         {
@@ -73,24 +81,32 @@ public class GameController : MonoBehaviour
             
             if (NatureImages[3].activeSelf && ProfColor.saturation.value == -100)
             {
+                SmokeParticle.emissionRate += 2;
                 NatureImages[3].SetActive(false);
-                foreach (DegradableItem item in Degradables)
-                {
-                        item.SwitchTree(true);
-                    
-                }
+                TreePulse.PulseCoin();
             }
             else if (NatureImages[2].activeSelf && ProfColor.saturation.value == -74)
             {
+                SmokeParticle.emissionRate += 2;
                 NatureImages[2].SetActive(false);
+                TreePulse.PulseCoin();
             }
             else if (NatureImages[1].activeSelf && ProfColor.saturation.value == -50)
             {
+                SmokeParticle.emissionRate += 2;
                 NatureImages[1].SetActive(false);
+                TreePulse.PulseCoin();
+                foreach (DegradableItem item in Degradables)
+                {
+                    item.SwitchTree(true);
+
+                }
             }
             else if (NatureImages[0].activeSelf && ProfColor.saturation.value == -26)
             {
+                SmokeParticle.emissionRate += 2;
                 NatureImages[0].SetActive(false);
+                TreePulse.PulseCoin();
             }
         }
         else if (ProfColor.saturation.value < 0 && IsGrayScale)
@@ -100,19 +116,28 @@ public class GameController : MonoBehaviour
 
              if (!NatureImages[3].activeSelf && ProfColor.saturation.value == -74)
             {
+                SmokeParticle.gameObject.SetActive(false);
+                GreenParticle.gameObject.SetActive(true);
                 NatureImages[3].SetActive(true);
+                TreePulse.PulseCoin();
             }
             else if (!NatureImages[2].activeSelf && ProfColor.saturation.value == -50)
             {
+                GreenParticle.emissionRate += 2;
                 NatureImages[2].SetActive(true);
+                TreePulse.PulseCoin();
             }
             else if (!NatureImages[1].activeSelf && ProfColor.saturation.value == -26)
             {
+                GreenParticle.emissionRate += 2;
                 NatureImages[1].SetActive(true);
+                TreePulse.PulseCoin();
             }
             else if (!NatureImages[0].activeSelf && ProfColor.saturation.value == 0)
             {
+                GreenParticle.gameObject.SetActive(false);
                 NatureImages[0].SetActive(true);
+                TreePulse.PulseCoin();
             }
 
             if (ProfColor.saturation.value == -50 && IsGrayScale && !PlayerPrefs.HasKey("historyplayed"))

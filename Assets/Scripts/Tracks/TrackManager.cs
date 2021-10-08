@@ -628,7 +628,7 @@ public class TrackManager : MonoBehaviour
                         {
                             Debug.Log("picou " + consumableDatabase.consumbales[picked].name);
                             // Spawn a powerup instead.
-                            m_TimeSincePowerup = 0.0f;
+                            m_TimeSincePowerup = 50f;
                             powerupChance = 0.0f;
 
                             AsyncOperationHandle op = Addressables.InstantiateAsync(consumableDatabase.consumbales[picked].gameObject.name, pos, rot);

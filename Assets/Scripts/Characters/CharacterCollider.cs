@@ -127,16 +127,18 @@ public class CharacterCollider : MonoBehaviour
 				Coin.coinPool.Free(c.gameObject);
 
 				m_Audio.PlayOneShot(premiumSound);
+				GameController.Instance.BiomaCoinPulse.PulseCoin();
+				GameController.Instance.BrilhoAnim.SetTrigger("brilho");
 			}
             else
             {
 				Coin.coinPool.Free(c.gameObject);
                 PlayerData.instance.coins += 1;
 				controller.coins += 1;
-
-
+				
 				m_Audio.PlayOneShot(coinSound);
 
+				GameController.Instance.BadCoinPulse.PulseCoin();
 			}
 			//Grayscale
 			GameController.Instance.SetGrayScale();
