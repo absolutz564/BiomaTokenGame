@@ -131,12 +131,32 @@ MonoBehaviour:
   possibleObstacles:
   - m_AssetGUID: d68ac797bf384f84bbca159dc2a6e4d7
     m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   - m_AssetGUID: ec0335ae7fd65b74898920e51d042abd
     m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   - m_AssetGUID: 22facfbe232a90b45b681c638f2e490d
     m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   - m_AssetGUID: b19a0bd8ede69fe4683dff84150a047b
     m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: f9141cac9cf701b4c89f957cbb291cb5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: bc2a751d12eb1374aad9016238078ed8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 605122eb348c3d24fb3afecfd7b84445
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   obstaclePositions:
   - 0.6
   - 0.25

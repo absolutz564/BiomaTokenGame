@@ -43,6 +43,21 @@ public class GameController : MonoBehaviour
 
     public Animator BrilhoAnim;
 
+    public Animator AnimTransition;
+
+    public void LoadScene(string scene)
+    {
+        StartCoroutine(WaitToLoadScene(scene));
+    }
+
+    public IEnumerator WaitToLoadScene(string sceneName)
+    {
+        AnimTransition.SetTrigger("Stop");
+        yield return new WaitForSecondsRealtime(3);
+        Time.timeScale = 1.0f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
+
     public void SetCoinTo2x(bool state)
     {
         if (state)

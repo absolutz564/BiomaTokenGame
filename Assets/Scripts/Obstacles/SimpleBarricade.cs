@@ -10,7 +10,7 @@ public class SimpleBarricade : Obstacle
     protected const int k_MaxObstacleCount = 2;
     protected const int k_LeftMostLaneIndex = -1;
     protected const int k_RightMostLaneIndex = 1;
-    
+    public bool isMonkey;
     public override IEnumerator Spawn(TrackSegment segment, float t)
     {
         //the tutorial very firts barricade need to be center and alone, so player can swipe safely in bother direction to avoid it
@@ -18,7 +18,7 @@ public class SimpleBarricade : Obstacle
 
         if (isTutorialFirst)
             TrackManager.instance.firstObstacle = false;
-        
+
         int count = isTutorialFirst ? 1 : Random.Range(k_MinObstacleCount, k_MaxObstacleCount + 1);
         int startLane = isTutorialFirst ? 0 : Random.Range(k_LeftMostLaneIndex, k_RightMostLaneIndex + 1);
 
@@ -26,10 +26,15 @@ public class SimpleBarricade : Obstacle
         Quaternion rotation;
         segment.GetPointAt(t, out position, out rotation);
 
-        for(int i = 0; i < count; ++i)
+        for (int i = 0; i < count; ++i)
         {
             int lane = startLane + i;
             lane = lane > k_RightMostLaneIndex ? k_LeftMostLaneIndex : lane;
+
+            if (isMonkey)
+            {
+                position = new Vector3(position.x, 1.2f, position.z);
+            }
 
             AsyncOperationHandle op = Addressables.InstantiateAsync(gameObject.name, position, rotation);
             yield return op;
@@ -44,6 +49,7 @@ public class SimpleBarricade : Obstacle
                 Debug.Log(gameObject.name);
             else
             {
+
                 obj.transform.position += obj.transform.right * lane * segment.manager.laneOffset;
 
                 obj.transform.SetParent(segment.objectRoot, true);

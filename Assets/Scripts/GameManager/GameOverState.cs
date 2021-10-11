@@ -97,6 +97,15 @@ public class GameOverState : AState
     {
         Invoke("Reload", 0.2f);
     }
+    public void RunGameAgainGameOver()
+    {
+        StartCoroutine(GameController.Instance.WaitToLoadScene("Main"));
+    }
+    public void GoToMenuGameOver()
+    {
+        StartCoroutine(GameController.Instance.WaitToLoadScene("Menu"));
+    }
+
     void Reload()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main");

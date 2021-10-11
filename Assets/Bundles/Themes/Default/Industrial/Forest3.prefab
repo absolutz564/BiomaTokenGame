@@ -1363,10 +1363,18 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: f9141cac9cf701b4c89f957cbb291cb5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 6143595f07383e84d9b07162333b35d5
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   obstaclePositions:
   - 0.6
   - 0.25
-  - 0
+  - 0.413
 --- !u!1 &1249199784797766895
 GameObject:
   m_ObjectHideFlags: 0

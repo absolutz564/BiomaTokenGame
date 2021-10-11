@@ -63,6 +63,7 @@
     <type fullname="Character" preserve="all" />
     <type fullname="RandomAnimation" preserve="all" />
     <type fullname="AdsForMission" preserve="all" />
+    <type fullname="DestroyOnTrigger" preserve="all" />
     <type fullname="AllLaneObstacle" preserve="all" />
     <type fullname="PatrollingObstacle" preserve="all" />
     <type fullname="SimpleBarricade" preserve="all" />
@@ -78,9 +79,9 @@
     <type fullname="UnityEngine.CanvasRenderer" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rigidbody" preserve="all" />
     <type fullname="UnityEngine.MeshCollider" preserve="all" />
     <type fullname="UnityEngine.BoxCollider" preserve="all" />
-    <type fullname="UnityEngine.Rigidbody" preserve="all" />
     <type fullname="UnityEngine.ConstantForce" preserve="all" />
     <type fullname="UnityEngine.CapsuleCollider" preserve="all" />
   </assembly>

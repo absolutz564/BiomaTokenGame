@@ -49,6 +49,22 @@ MonoBehaviour:
     m_Address: ObstacleRoadworkBush
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: f9141cac9cf701b4c89f957cbb291cb5
+    m_Address: ObstacleGuaxinim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bc2a751d12eb1374aad9016238078ed8
+    m_Address: ObstacleGuaxinim2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 605122eb348c3d24fb3afecfd7b84445
+    m_Address: ObstacleGuaxinim3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6143595f07383e84d9b07162333b35d5
+    m_Address: ObstacleMonkey
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:

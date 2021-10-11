@@ -441,7 +441,7 @@ public class TrackManager : MonoBehaviour
 
         PowerupSpawnUpdate();
 
-        if (!m_IsTutorial)
+        if (!GameController.Instance.isTutorial)
         {
             if (m_Speed < maxSpeed)
                 m_Speed += k_Acceleration * Time.deltaTime;
@@ -459,7 +459,7 @@ public class TrackManager : MonoBehaviour
             }
         }
 
-        if (!m_IsTutorial)
+        if (!GameController.Instance.isTutorial)
         {
             //check for next rank achieved
             int currentTarget = (PlayerData.instance.rank + 1) * 300;

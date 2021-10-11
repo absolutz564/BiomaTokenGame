@@ -1461,6 +1461,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff2f071f7335eb43a712a702b990041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &139562914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 139562915}
+  - component: {fileID: 139562916}
+  m_Layer: 0
+  m_Name: CollisorUnlockPatrol
+  m_TagString: UnlockPatrol
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &139562915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139562914}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 52.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2094493433}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &139562916
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139562914}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 80, y: 5, z: 30}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &149426216
 GameObject:
   m_ObjectHideFlags: 0
@@ -10833,7 +10877,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 455205752}
-        m_MethodName: GoToMenu
+        m_MethodName: GoToMenuGameOver
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14503,7 +14547,6 @@ Transform:
   - {fileID: 2038194881}
   - {fileID: 1933002473}
   - {fileID: 282491579}
-  - {fileID: 1934942588}
   - {fileID: 77069732}
   m_Father: {fileID: 2094493433}
   m_RootOrder: 0
@@ -19753,6 +19796,7 @@ MonoBehaviour:
   BiomaCoinPulse: {fileID: 1567691766}
   TreePulse: {fileID: 913997163}
   BrilhoAnim: {fileID: 1910114609}
+  AnimTransition: {fileID: 1931483685}
 --- !u!114 &1565788660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23992,51 +24036,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   websiteAddress: https://unity3d.com/learn
---- !u!1001 &1835725821
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1144878496}
-    m_Modifications:
-    - target: {fileID: 1608420632658026, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071066
-      objectReference: {fileID: 0}
-    - target: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.707107
-      objectReference: {fileID: 0}
-    - target: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ba9ada52ec59a9a419f39eb32bf9a3b0, type: 3}
 --- !u!1 &1838646678
 GameObject:
   m_ObjectHideFlags: 0
@@ -24314,7 +24313,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 455205752}
-        m_MethodName: RunGameAgain
+        m_MethodName: RunGameAgainGameOver
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25347,7 +25346,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5ddf64c01affa03449e9738219c64c76, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -25483,12 +25482,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933716261}
   m_CullTransparentMesh: 0
---- !u!4 &1934942588 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4517117861405044, guid: ba9ada52ec59a9a419f39eb32bf9a3b0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1835725821}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1946781927
 GameObject:
   m_ObjectHideFlags: 0
@@ -31510,7 +31503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2094493432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31553,6 +31546,7 @@ Transform:
   - {fileID: 184212907}
   - {fileID: 630422118}
   - {fileID: 2177155467884423762}
+  - {fileID: 139562915}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46276,5 +46270,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 40, y: 5, z: 30}
+  m_Size: {x: 80, y: 5, z: 30}
   m_Center: {x: 0, y: 0, z: 0}

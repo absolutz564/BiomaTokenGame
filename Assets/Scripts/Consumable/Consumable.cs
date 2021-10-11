@@ -40,7 +40,7 @@ public abstract class Consumable : MonoBehaviour
     public abstract string GetConsumableName();
     public abstract int GetPrice();
 	public abstract int GetPremiumCost();
-
+    bool particleIsChild = false;
     public void ResetTime()
     {
         m_SinceStart = 0;
@@ -56,25 +56,42 @@ public abstract class Consumable : MonoBehaviour
     {
         m_SinceStart = 0;
 
-		if (activatedSound != null)
-		{
-			c.powerupSource.clip = activatedSound;
-			c.powerupSource.Play();
-		}
+        if (activatedSound != null)
+        {
+            c.powerupSource.clip = activatedSound;
+            c.powerupSource.Play();
+        }
 
-        if(ActivatedParticleReference != null)
+        if (ActivatedParticleReference != null)
         {
             //Addressables 1.0.1-preview
             var op = ActivatedParticleReference.InstantiateAsync();
             yield return op;
+
             m_ParticleSpawned = op.Result.GetComponent<ParticleSystem>();
+
+            if (m_ParticleSpawned == null)
+            {
+                particleIsChild = true;
+                m_ParticleSpawned = op.Result.GetComponentInChildren<ParticleSystem>();
+            }
             if (!m_ParticleSpawned.main.loop)
                 StartCoroutine(TimedRelease(m_ParticleSpawned.gameObject, m_ParticleSpawned.main.duration));
 
-            m_ParticleSpawned.transform.SetParent(c.characterCollider.transform);
-            m_ParticleSpawned.transform.localPosition = op.Result.transform.position;
+            if (particleIsChild)
+            {
+                op.Result.transform.SetParent(c.characterCollider.transform);
+                op.Result.transform.localPosition = op.Result.transform.position;
+            }
+            else
+            {
+                m_ParticleSpawned.transform.SetParent(c.characterCollider.transform);
+                m_ParticleSpawned.transform.localPosition = op.Result.transform.position;
+            }
+
+
         }
-	}
+    }
 
     IEnumerator TimedRelease(GameObject obj, float time)
     {
@@ -98,7 +115,17 @@ public abstract class Consumable : MonoBehaviour
         if (m_ParticleSpawned != null)
         {
             if (m_ParticleSpawned.main.loop)
-                Addressables.ReleaseInstance(m_ParticleSpawned.gameObject);
+            {
+                if (particleIsChild)
+                {
+                    Addressables.ReleaseInstance(m_ParticleSpawned.transform.parent.gameObject);
+                }
+                else
+                {
+                    Addressables.ReleaseInstance(m_ParticleSpawned.gameObject);
+                }
+            }
+
         }
 
         if (activatedSound != null && c.powerupSource.clip == activatedSound)
