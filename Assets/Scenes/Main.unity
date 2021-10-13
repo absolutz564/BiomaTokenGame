@@ -25665,7 +25665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoinList: []
   characterController: {fileID: 2094493432}
-  minSpeed: 15
+  minSpeed: 14
   maxSpeed: 20
   speedStep: 4
   laneOffset: 1.5

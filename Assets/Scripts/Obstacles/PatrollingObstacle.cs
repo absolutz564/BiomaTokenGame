@@ -58,7 +58,7 @@ public class PatrollingObstacle : Obstacle
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "UnlockPatrol")
+        if (other.tag == "UnlockPatrol" && !GameController.Instance.isTutorial)
         {
             Debug.Log("Liberou o guaxinim");
             m_isMoving = true;
