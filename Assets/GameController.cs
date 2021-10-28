@@ -42,9 +42,11 @@ public class GameController : MonoBehaviour
     public GrowAndShrink TreePulse;
 
     public Animator BrilhoAnim;
+    public Animator BrilhoAnimNature;
 
     public Animator AnimTransition;
-
+    public AudioSource audioSource;
+    public List<AudioClip> NatureClips;
     public void LoadScene(string scene)
     {
         StartCoroutine(WaitToLoadScene(scene));
@@ -73,6 +75,8 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     {
+        audioSource.ignoreListenerPause = true;
+        audioSource.ignoreListenerVolume = true;
         RecordText.text = PlayfabManager.instance.LeaderboardScores[0];
         Degradables.Initialize();
     }
@@ -96,6 +100,8 @@ public class GameController : MonoBehaviour
             
             if (NatureImages[3].activeSelf && ProfColor.saturation.value == -100)
             {
+                audioSource.clip = NatureClips[0];
+                audioSource.Play();
                 SmokeParticle.emissionRate += 2;
                 NatureImages[3].SetActive(false);
                 TreePulse.PulseCoin();
@@ -131,6 +137,7 @@ public class GameController : MonoBehaviour
 
              if (!NatureImages[3].activeSelf && ProfColor.saturation.value == -74)
             {
+                GameController.Instance.BrilhoAnimNature.SetTrigger("brilho");
                 SmokeParticle.gameObject.SetActive(false);
                 GreenParticle.gameObject.SetActive(true);
                 NatureImages[3].SetActive(true);
@@ -138,18 +145,27 @@ public class GameController : MonoBehaviour
             }
             else if (!NatureImages[2].activeSelf && ProfColor.saturation.value == -50)
             {
+                GameController.Instance.BrilhoAnimNature.SetTrigger("brilho");
+                audioSource.clip = NatureClips[1];
+                audioSource.Play();
                 GreenParticle.emissionRate += 2;
                 NatureImages[2].SetActive(true);
                 TreePulse.PulseCoin();
             }
             else if (!NatureImages[1].activeSelf && ProfColor.saturation.value == -26)
             {
+                GameController.Instance.BrilhoAnimNature.SetTrigger("brilho");
+                audioSource.clip = NatureClips[2];
+                audioSource.Play();
                 GreenParticle.emissionRate += 2;
                 NatureImages[1].SetActive(true);
                 TreePulse.PulseCoin();
             }
             else if (!NatureImages[0].activeSelf && ProfColor.saturation.value == 0)
             {
+                GameController.Instance.BrilhoAnimNature.SetTrigger("brilho");
+                audioSource.clip = NatureClips[3];
+                audioSource.Play();
                 GreenParticle.gameObject.SetActive(false);
                 NatureImages[0].SetActive(true);
                 TreePulse.PulseCoin();
@@ -175,6 +191,10 @@ public class GameController : MonoBehaviour
             ChangeCoin(true);
             PlayerPrefs.SetInt("historyplayed", 1);
             isTutorial = false;
+        }
+        else
+        {
+            GameController.Instance.BrilhoAnimNature.SetTrigger("brilho");
         }
         //else if (ProfColor.saturation.value == 0 & IsGrayScale)
         //{

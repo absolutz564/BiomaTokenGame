@@ -11,6 +11,7 @@ public class SimpleBarricade : Obstacle
     protected const int k_LeftMostLaneIndex = -1;
     protected const int k_RightMostLaneIndex = 1;
     public bool isMonkey;
+    
     public override IEnumerator Spawn(TrackSegment segment, float t)
     {
         //the tutorial very firts barricade need to be center and alone, so player can swipe safely in bother direction to avoid it

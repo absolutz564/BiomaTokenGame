@@ -125,7 +125,7 @@ public class CharacterCollider : MonoBehaviour
 				//controller.coins += 1;
 
 				Coin.coinPool.Free(c.gameObject);
-
+				m_Audio.volume = 0.7f;
 				m_Audio.PlayOneShot(premiumSound);
 				GameController.Instance.BiomaCoinPulse.PulseCoin();
 				GameController.Instance.BrilhoAnim.SetTrigger("brilho");
@@ -135,6 +135,8 @@ public class CharacterCollider : MonoBehaviour
 				Coin.coinPool.Free(c.gameObject);
                 PlayerData.instance.coins += 1;
 				controller.coins += 1;
+
+				m_Audio.volume = 0.7f;
 				
 				m_Audio.PlayOneShot(coinSound);
 

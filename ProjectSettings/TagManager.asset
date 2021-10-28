@@ -8,6 +8,7 @@ TagManager:
   - Coin
   - ObstacleGuaxinim
   - UnlockPatrol
+  - Monkey
   layers:
   - Default
   - TransparentFX

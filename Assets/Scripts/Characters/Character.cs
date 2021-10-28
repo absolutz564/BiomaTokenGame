@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
     }
     private void Start()
     {
-
+        this.tag = "Player";
     }
 
 }

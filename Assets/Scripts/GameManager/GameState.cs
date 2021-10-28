@@ -453,6 +453,7 @@ public class GameState : AState
         //It lead to the ads playing and then crashing the game as it try to start the second wind again.
         //Whichever of those function run first will take precedence
         videoObject.SetActive(true);
+        MusicPlayer.instance.stems[0].source.volume = 0;
 
         if (m_GameoverSelectionDone)
             return;
@@ -474,11 +475,15 @@ public class GameState : AState
     public void BackToVideo()
     {
         CancelInvoke("SecondWind");
+        MusicPlayer.instance.stems[0].source.volume = 1;
         videoObject.SetActive(false);
     }
 
     public void SecondWind()
     {
+        MusicPlayer.instance.stems[0].source.Stop();
+        MusicPlayer.instance.stems[0].source.volume = 1;
+        MusicPlayer.instance.stems[0].source.Play();
         trackManager.characterController.currentLife = 1;
         trackManager.isRerun = true;
         StartGame();

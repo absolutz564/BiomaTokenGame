@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,6 +26,8 @@ public class StartButton : MonoBehaviour
     public Button SaveNameButton;
     public GameObject NameObject;
     public GameObject EmailObject;
+
+    public Animator LoginAnim;
 
     public GameObject RankingObject;
     public GameObject LoadingPopup;
@@ -100,10 +105,55 @@ public class StartButton : MonoBehaviour
         }
     }
 
+    public static bool IsValidEmail(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            return false;
+
+        try
+        {
+            // Normalize the domain
+            email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                  RegexOptions.None, TimeSpan.FromMilliseconds(200));
+
+            // Examines the domain part of the email and normalizes it.
+            string DomainMapper(Match match)
+            {
+                // Use IdnMapping class to convert Unicode domain names.
+                var idn = new IdnMapping();
+
+                // Pull out and process domain name (throws ArgumentException on invalid)
+                string domainName = idn.GetAscii(match.Groups[2].Value);
+
+                return match.Groups[1].Value + domainName;
+            }
+        }
+        catch (RegexMatchTimeoutException e)
+        {
+            return false;
+        }
+        catch (ArgumentException e)
+        {
+            return false;
+        }
+
+        try
+        {
+            return Regex.IsMatch(email,
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
+                RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+        }
+        catch (RegexMatchTimeoutException)
+        {
+            return false;
+        }
+    }
+
     public void GoToInputEmail()
     {
-        NameObject.SetActive(false);
-        EmailObject.SetActive(true);
+        //NameObject.SetActive(false);
+        //EmailObject.SetActive(true);
+        LoginAnim.SetTrigger("SetEmail");
     }
     public void ValueChanged()
     {
@@ -122,7 +172,7 @@ public class StartButton : MonoBehaviour
     IEnumerator WaitToCheck()
     {
         yield return new WaitForSeconds(0.3f);
-        if (PlayerNameText.text != string.Empty && PlayerEmailText.text != string.Empty && !SaveButton.IsInteractable())
+        if (PlayerNameText.text != string.Empty && PlayerEmailText.text != string.Empty && IsValidEmail(PlayerEmailText.text) && !SaveButton.IsInteractable())
         {
             SaveButton.interactable = true;
         }

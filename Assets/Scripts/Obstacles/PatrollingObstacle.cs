@@ -60,6 +60,17 @@ public class PatrollingObstacle : Obstacle
     {
         if (other.tag == "UnlockPatrol" && !GameController.Instance.isTutorial)
         {
+            if (this.tag == "ObstacleGuaxinim")
+            {
+                Transform Rastros = this.transform.Find("rastros");
+                if (Rastros != null)
+                {
+                    Rastros.SetParent(this.transform.parent);
+
+                    Rastros.gameObject.SetActive(true);
+                    Rastros.localPosition = new Vector3(transform.localPosition.x - 21.5f, transform.localPosition.y, transform.localPosition.z);
+                }
+            }
             Debug.Log("Liberou o guaxinim");
             m_isMoving = true;
         }
@@ -70,9 +81,18 @@ public class PatrollingObstacle : Obstacle
         float actualTime = Random.Range(minTime, maxTime);
         if (this.tag == "ObstacleGuaxinim")
         {
+            Transform Rastros = this.transform.Find("rastros");
+            if (Rastros != null)
+            {
+                if (GameController.Instance.isTutorial)
+                {
+                    Rastros.gameObject.SetActive(false);
+                }
+            }
             k_LaneOffsetToFullWidth = 150f;
-            actualTime = Random.Range(minTime*10, maxTime*10);
+            actualTime = Random.Range(minTime * 10, maxTime * 10);
             m_OriginalPosition = new Vector3(transform.localPosition.x + 20 + transform.right.x * m_Segement.manager.laneOffset, transform.localPosition.y + transform.right.y * m_Segement.manager.laneOffset, transform.localPosition.z + transform.right.z * m_Segement.manager.laneOffset);
+
         }
         else
         {
@@ -86,7 +106,7 @@ public class PatrollingObstacle : Obstacle
             m_Audio.clip = patrollingSound[Random.Range(0, patrollingSound.Length)];
             m_Audio.Play();
         }
-        
+
 
         transform.localPosition = m_OriginalPosition;
 
@@ -144,7 +164,7 @@ public class PatrollingObstacle : Obstacle
             return;
 
         m_CurrentPos += Time.deltaTime * m_MaxSpeed;
-        
+
 
         transform.localPosition = m_OriginalPosition - transform.right * Mathf.PingPong(m_CurrentPos, m_Segement.manager.laneOffset * k_LaneOffsetToFullWidth);
     }
